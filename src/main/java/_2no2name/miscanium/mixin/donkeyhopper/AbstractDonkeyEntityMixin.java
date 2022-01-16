@@ -4,7 +4,6 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.passive.AbstractDonkeyEntity;
 import net.minecraft.entity.passive.HorseBaseEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Direction;
@@ -61,11 +60,7 @@ public class AbstractDonkeyEntityMixin extends HorseBaseEntity implements SidedI
 
     @Override
     public boolean canPlayerUse(PlayerEntity player) {
-        if (this.isRemoved()) {
-            return false;
-        } else {
-            return !(player.squaredDistanceTo(this) > 64.0D);
-        }
+        throw new UnsupportedOperationException();
     }
 
     @Override
