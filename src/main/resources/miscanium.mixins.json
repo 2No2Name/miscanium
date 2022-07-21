@@ -4,6 +4,9 @@
   "package": "_2no2name.miscanium.mixin",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
+    "dispensercart.AbstractMinecartEntityMixin",
+    "dispensercart.AbstractMinecartEntityTypeMixin",
+    "dispensercart.DispenserBlockAccessor",
     "donkeyhopper.AbstractDonkeyEntityMixin"
   ],
   "client": [
