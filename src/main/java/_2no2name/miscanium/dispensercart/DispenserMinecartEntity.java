@@ -8,8 +8,10 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.dispenser.DispenserBehavior;
+import net.minecraft.block.dispenser.ProjectileDispenserBehavior;
 import net.minecraft.client.render.entity.MinecartEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
@@ -92,12 +94,25 @@ public class DispenserMinecartEntity extends StorageMinecartEntity {
         }
         ItemStack itemStack = this.getStack(slot);
         DispenserBehavior dispenserBehavior = DispenserBlockAccessor.getBehaviorMap().get(itemStack.getItem());
+        if (dispenserBehavior instanceof ProjectileDispenserBehavior projectileDispenserBehavior) {
+            dispenserBehavior = getBehaviorWithOwner(this, projectileDispenserBehavior);
+        }
         if (dispenserBehavior != DispenserBehavior.NOOP) {
             DispenserMinecartPointerImpl dispenserMinecartPointer = DispenserMinecartPointerImpl.from(this);
             this.setStack(slot, dispenserBehavior.dispense(dispenserMinecartPointer, itemStack));
         }
 
     }
+
+    public static DispenserBehavior getBehaviorWithOwner(Entity owner, ProjectileDispenserBehavior behavior) {
+        DispenserBehaviorWithOwner copy = ((DispenserBehaviorWithOwner) behavior).getCopy();
+        if (copy != null) {
+            copy.setOwner(owner);
+            return copy;
+        }
+        return behavior;
+    }
+
 
     private int chooseDispenseSlot() {
         int chosenSlot = -1;
