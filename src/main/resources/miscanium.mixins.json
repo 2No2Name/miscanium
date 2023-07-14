@@ -4,6 +4,7 @@
   "package": "_2no2name.miscanium.mixin",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
+    "benigncreeper.CreeperEntityMixin",
     "dispensercart.AbstractMinecartEntityMixin",
     "dispensercart.AbstractMinecartEntityTypeMixin",
     "dispensercart.DispenserBlockAccessor",
